@@ -10,18 +10,25 @@ class TasksController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $tasks = Task::all();
+  
+   public function index()
+  {
+       if (\Auth::check()) {
+       $user =  \Auth::user();    
+       $tasks = Task::orderBy('id', 'desc')->paginate(25);
 
-        return view('tasks.index', [
+     return view('tasks.index', [
             'tasks' => $tasks,
         ]);
-    }
-
+       }
+    else {
+    return view('welcome');
+    }   
+     
+}
     /**
      * Show the form for creating a new resource.
      *
@@ -122,3 +129,4 @@ class TasksController extends Controller
         return redirect('/');
     }
 }
+    
