@@ -70,12 +70,17 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        if (\Auth::check()) {
         $task = Task::find($id);
 
         return view('tasks.show', [
             'task' => $task,
         ]);
+        }
+        else {
+    return view('welcome');
+    }   
     }
 
     /**
@@ -86,13 +91,17 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
+        if (\Auth::check()) {
         $task = Task::find($id);
 
         return view('tasks.edit', [
             'task' => $task,
         ]);
+        }
+        else {
+    return view('welcome');
+    }   
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -102,17 +111,21 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(\Auth::check()){
         $this->validate($request, [
             'status' => 'required|max:10', 
             'content' => 'required|max:191',
         ]);
-        
         $task = Task::find($id);
         $task->status = $request->status;
         $task->content = $request->content;
         $task->save();
 
         return redirect('/');
+    }
+    else {
+    return view('welcome');
+    }   
     }
 
     /**
@@ -123,10 +136,14 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
+        if(\Auth::check()){
         $task = Task::find($id);
         $task->delete();
 
         return redirect('/');
     }
-}
-    
+    else {
+    return view('welcome');
+    }   
+    }
+}    
