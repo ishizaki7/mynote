@@ -10,6 +10,6 @@ class Task extends Model
 
     public function user()
     {
-        return $this->belongsTo(Tasklist::class);
+        return $this->belongsTo(User::class);
     }
 }
