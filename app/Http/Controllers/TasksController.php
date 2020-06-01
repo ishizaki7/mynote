@@ -85,7 +85,7 @@ class TasksController extends Controller
         ]);
         }
         else {
-        return view('/');
+        return redirect('/');
          }   
     }
 
