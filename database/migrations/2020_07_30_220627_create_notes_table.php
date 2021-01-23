@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserIdToTasksTable extends Migration
+class CreateNotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class AddUserIdToTasksTable extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
+        Schema::create('notes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+            $table->string('content');
+            $table->string('status');
             $table->unsignedinteger('user_id');
-        
+            $table->string('image_path')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +31,6 @@ class AddUserIdToTasksTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('notes');
     }
 }

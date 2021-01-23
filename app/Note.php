@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Note extends Model
 {
-     protected $fillable = ['content', 'user_id'];
+     protected $fillable = ['content', 'user_id','image_path' ];
 
     public function user()
     {
